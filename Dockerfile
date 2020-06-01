@@ -118,5 +118,5 @@ RUN cmake --build /dlib/build
 RUN cd /dlib; python3 /dlib/setup.py install
 
 COPY test.py /usr/src/files/
-RUN python /usr/src/files/test.py
+RUN python3 /usr/src/files/test.py
 

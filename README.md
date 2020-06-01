@@ -11,7 +11,10 @@ docker build -t python3-opencv3-dlib-cuda .
 ```
 ## RUN
 ```
-docker run -ti -v $(pwd):/usr/src/app lapidarioz/python3-opencv3-dlib-cuda /bin/sh
-cd /usr/src/app
 python youraplication.py
+docker run --gpus all -it --rm \
+    -v $PWD:/usr/src/app \
+    -w /usr/src/app \
+    -u $(id -u):$(id -g) \
+    lapidarioz/python3-opencv3-dlib-cuda python3 ./youraplication.py
 ```

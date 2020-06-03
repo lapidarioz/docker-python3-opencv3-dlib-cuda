@@ -93,7 +93,8 @@ libxext6 \
 libxrender-dev \
 ffmpeg \
 python3 \
-python3-pip
+python3-pip \
+bzip2
 
 RUN pip3 install scikit-build
 
@@ -116,6 +117,11 @@ RUN cmake -H/dlib -B/dlib/build -DDLIB_USE_CUDA=1 -DUSE_AVX_INSTRUCTIONS=1
 RUN cmake --build /dlib/build
 
 RUN cd /dlib; python3 /dlib/setup.py install
+
+WORKDIR /usr/src/
+
+RUN wget http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2 && \
+    bzip2 -d shape_predictor_68_face_landmarks.dat.bz2
 
 COPY test.py /usr/src/files/
 RUN python3 /usr/src/files/test.py

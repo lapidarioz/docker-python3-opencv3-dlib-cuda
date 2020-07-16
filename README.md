@@ -4,6 +4,7 @@
 * OpenCV 3.4.9
 * DLIB 19.19
 * CUDA 10.1 cudnn 7
+* tensorflow 2.2.0
 
 ## BUILD
 ```
@@ -11,10 +12,17 @@ docker build -t python3-opencv3-dlib-cuda .
 ```
 ## RUN
 ```
-python youraplication.py
 docker run --gpus all -it --rm \
     -v $PWD:/usr/src/app \
     -w /usr/src/app \
-    -u $(id -u):$(id -g) \
-    lapidarioz/python3-opencv3-dlib-cuda python3 ./youraplication.py
+    lapidarioz/python3-opencv3-dlib-cuda python youraplication.py
+```
+
+## Dcokerfile
+```
+FROM lapidarioz/python3-opencv3-dlib-cuda
+
+WORKDIR /usr/src/app
+COPY requirements.txt /usr/src/app/
+RUN pip install -U --no-cache-dir -r requirements.txt
 ```

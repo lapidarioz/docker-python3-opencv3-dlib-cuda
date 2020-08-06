@@ -84,7 +84,7 @@ libxext6 \
 libxrender-dev \
 bzip2
 
-RUN pip3 install scikit-build
+RUN pip install scikit-build
 
 # Install compilers
 
@@ -106,7 +106,7 @@ RUN cmake --build /dlib/build
 RUN cd /dlib; python3 /dlib/setup.py install
 
 # Install the face recognition package
-RUN pip3 install face_recognition
+RUN pip install face_recognition
 
 #Cleaning
 RUN apt-get autoremove -y && \

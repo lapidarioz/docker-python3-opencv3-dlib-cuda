@@ -18,7 +18,7 @@ docker run --gpus all -it --rm \
     lapidarioz/python3-opencv3-dlib-cuda python youraplication.py
 ```
 
-## dockerfile
+## Dockerfile
 ```
 FROM lapidarioz/python3-opencv3-dlib-cuda
 

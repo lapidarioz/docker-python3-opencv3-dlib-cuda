@@ -58,11 +58,10 @@ wget https://github.com/opencv/opencv/archive/${OPENCV_VERSION}.zip \
 && rm /${OPENCV_VERSION}.zip \
 && rm -r /opencv-${OPENCV_VERSION} \
 && python --version && \
-   python -c "import cv2 ; print(cv2.__version__)"  && \
+   python -c "import cv2 ; print(cv2.__version__)"
 # keras
-pip install --no-cache-dir keras && \
 # image and video processing
-apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y \
         ffmpeg \
         python3-tk \
         libgstreamer1.0 \
@@ -73,7 +72,7 @@ apt-get update && apt-get install -y \
 pip install --no-cache-dir \
         scikit-image \
         sk-video \
-
+        keras
 
 # from https://github.com/ageitgey/face_recognition/blob/master/Dockerfile.gpu
 RUN apt update -y; apt install -y \
@@ -84,9 +83,9 @@ libxext6 \
 libxrender-dev \
 bzip2
 
-RUN pip install scikit-build
+# RUN pip install scikit-build
 
-# Install compilers
+# # Install compilers
 
 RUN apt install -y software-properties-common
 RUN add-apt-repository ppa:ubuntu-toolchain-r/test
@@ -95,7 +94,7 @@ RUN apt update -y; apt install -y gcc-6 g++-6
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 50
 RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 50
 
-#Install dlib 
+# #Install dlib 
 
 RUN git clone -b 'v19.16' --single-branch https://github.com/davisking/dlib.git
 RUN mkdir -p /dlib/build
@@ -103,12 +102,12 @@ RUN mkdir -p /dlib/build
 RUN cmake -H/dlib -B/dlib/build -DDLIB_USE_CUDA=1 -DUSE_AVX_INSTRUCTIONS=1
 RUN cmake --build /dlib/build
 
-RUN cd /dlib; python3 /dlib/setup.py install
+RUN cd /dlib; python /dlib/setup.py install
 
-# Install the face recognition package
+# # Install the face recognition package
 RUN pip install face_recognition
 
-#Cleaning
+# #Cleaning
 RUN apt-get autoremove -y && \
 apt-get clean && \
 rm -rf /opencv /opencv_contrib /var/lib/apt/lists/* 
